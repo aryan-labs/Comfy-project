@@ -8,10 +8,12 @@ import Login from './Pages/Login'
 import Register from './Pages/Register'
 import About from './Pages/About'
 import Error from './Pages/Error'
+
 const App = () => {
   return (
     <div>
-      <Routes>
+      
+      <Routes> 
         <Route errorElement={<Error/>} path='/' element={<HomeLayout/>}/>
         <Route errorElement={<Error/>} path='/products' element={<Product/>}/>
         <Route errorElement={<Error/>} path='/products:id' element={<SingleProduct/>}/>
