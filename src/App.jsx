@@ -19,7 +19,7 @@ const App = () => {
       
       <Routes> 
         <Route errorElement={<Error/>} path='/' element={<HomeLayout/>}/>
-        <Route errorElement={<Error/>} path='/products:id' element={<SingleProduct/>}/>
+        <Route errorElement={<Error/>} path='/products/:id' element={<SingleProduct/>}/>
         <Route errorElement={<Error/>} path='/products' element={<Product/>}/>
         <Route errorElement={<Error/>} path='/cart' element={<Cart/>}/>
         <Route errorElement={<Error/>} path='/login' element={<Login/>}/>
