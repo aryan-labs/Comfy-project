@@ -263,7 +263,7 @@ const Product = () => {
                 <h2 className='text-xl text-gray-700 pt-4'>
                   {product.attributes.title}
                 </h2>
-                <p>${product.attributes.price / 100}</p>
+                  <p>${product.attributes.price / 100}</p>
               </div>
             </Link>
           ))}
