@@ -1,13 +1,53 @@
-import React from 'react'
-import { NavLink } from 'react-router-dom'
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { logout } from './Pages/authSlice';  // Import logout action
+import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
-  return (
-    <div className='flex flex-row-reverse pr-16 gap-4 bg-indigo-950 h-8 items-center  text-gray-300'>
-    <NavLink to='/login'>  <p>Sign-in/Guest</p></NavLink>
-     <NavLink to='/register'> <p>Create Acount</p></NavLink>
-    </div>
-  )
-}
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { user } = useSelector((state) => state.auth);
 
-export default Header
+  const handleLogout = () => {
+    dispatch(logout());  // Dispatch the logout action to clear user data
+    navigate('/login');  // Redirect to login page after logout
+  };
+
+  return (
+    <header className="bg-gray-800 text-white p-4 flex justify-between items-center">
+      <div>
+        <h1 className="text-2xl font-bold"></h1>
+      </div>
+      <div className="flex items-center">
+        {user ? (
+          <>
+            <span className="mr-4">Hi, {user.name}</span>  {/* Display user name */}
+            <button 
+              onClick={handleLogout} 
+              className="bg-blue-500 text-white py-2 px-4 rounded-lg"
+            >
+              Logout
+            </button>
+          </>
+        ) : (
+          <>
+            <button 
+              onClick={() => navigate('/login')} 
+              className="bg-blue-500 text-white py-2 px-4 rounded-lg mr-4"
+            >
+              Login
+            </button>
+            <button 
+              onClick={() => navigate('/register')} 
+              className="bg-blue-500 text-white py-2 px-4 rounded-lg"
+            >
+              Sign Up
+            </button>
+          </>
+        )}
+      </div>
+    </header>
+  );
+};
+
+export default Header;

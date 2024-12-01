@@ -34,7 +34,7 @@ const Cart = () => {
                 <p>Price: ${item.price}</p>
                 <p>Quantity: {item.quantity}</p>
                 <p>Total: ${item.totalPrice.toFixed(2)}</p>
-                <button className='' onClick={() => dispatch(removeItem(item.id))}>Remove</button>
+                <button   className="bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-700" onClick={() => dispatch(removeItem(item.id))}>Remove</button>
               </div>
               </li>
               <hr></hr>
