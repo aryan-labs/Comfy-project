@@ -17,13 +17,14 @@ const Login = () => {
   };
 
   // If user is logged in, redirect them to the home page
- useEffect(() => {
-  if (user) {
-    navigate('/');  // Redirect to home page if user is logged in
-  }
-}, [user, navigate]);
+  useEffect(() => {
+    if (user) {
+      navigate('/');  // Redirect to home page if user is logged in
+    }
+  }, [user, navigate]);
+
   return (
-    <div className="bg-gray-100 max-w-md mx-auto mt-24 p-6 rounded-lg shadow-lg">
+    <div className="bg-gray-100 max-w-md mx-auto mt-24 p-6 rounded-lg shadow-lg sm:w-11/12 md:w-9/12 lg:w-6/12">
       <form className="flex flex-col items-center" onSubmit={handleSubmit}>
         <h1 className="text-4xl text-gray-600 font-semibold">Login</h1>
         <p className="pt-8 w-full text-left">Email</p>

@@ -1,4 +1,3 @@
-// src/pages/SingleProduct.js
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import Header from '../Header';
@@ -38,8 +37,8 @@ const SingleProduct = () => {
           id,
           title: product.title,
           price: product.price / 100,
-          image:product.image,
-          company:product.company,
+          image: product.image,
+          company: product.company,
           quantity,
         })
       );
@@ -57,11 +56,11 @@ const SingleProduct = () => {
         <Link to="/products">Products</Link>
       </div>
       {product ? (
-        <div className="flex mt-10 ml-20">
-          <div>
-            <img className="w-96 h-96 rounded-lg" src={product.image} alt={product.title} />
+        <div className="flex flex-col md:flex-row mt-10 ml-20">
+          <div className="w-full md:w-1/2">
+            <img className="w-full h-auto rounded-lg" src={product.image} alt={product.title} />
           </div>
-          <div className="flex flex-col pl-10 gap-5">
+          <div className="flex flex-col pl-0 md:pl-10 gap-5 mt-5 md:mt-0">
             <h1 className="text-3xl font-bold text-gray-700">{product.title}</h1>
             <h1 className="text-xl font-bold text-gray-400">{product.company}</h1>
             <h1 className="text-xl">Price: ${product.price / 100}</h1>
@@ -83,7 +82,7 @@ const SingleProduct = () => {
               </button>
             </div>
             <button
-              className="w-32 h-10 rounded-xl bg-violet-800 text-white"
+              className="w-full md:w-32 h-10 rounded-xl bg-violet-800 text-white"
               onClick={handleAddToCart}
             >
               ADD TO BAG
