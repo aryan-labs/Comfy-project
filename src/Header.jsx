@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { logout } from './Pages/authSlice';  // Import logout action
+import { logout } from './Pages/authSlice.js';  // Import logout action
 import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
@@ -16,7 +16,7 @@ const Header = () => {
   return (
     <header className="bg-gray-800 text-white p-4 flex justify-between items-center">
       <div>
-        <h1 className="text-2xl font-bold"></h1>
+        <h1 className="text-2xl font-bold">My Application</h1>
       </div>
       <div className="flex items-center">
         {user ? (

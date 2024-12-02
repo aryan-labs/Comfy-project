@@ -1,4 +1,3 @@
-// authSlice.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { registerUser, loginUser } from "./userApi"; // Import API functions
 
@@ -15,7 +14,6 @@ export const registerUserAsync = createAsyncThunk(
     }
   }
 );
-
 
 // Login user action
 export const loginUserAsync = createAsyncThunk(
@@ -37,7 +35,7 @@ export const loginUserAsync = createAsyncThunk(
 const authSlice = createSlice({
   name: "auth",
   initialState: {
-    user: null,
+    user: JSON.parse(localStorage.getItem("user")) || null, // Retrieve user data from localStorage
     token: localStorage.getItem("authToken") || null, // Retrieve token from localStorage
     loading: false,
     error: null,
@@ -47,6 +45,7 @@ const authSlice = createSlice({
       state.user = null;
       state.token = null;
       localStorage.removeItem("authToken"); // Clear token from storage
+      localStorage.removeItem("user"); // Clear user data from storage
     },
   },
   extraReducers: (builder) => {
@@ -58,9 +57,10 @@ const authSlice = createSlice({
       })
       .addCase(registerUserAsync.fulfilled, (state, action) => {
         state.loading = false;
-        state.user = action.payload.user;
-        state.token = action.payload.token;
-        localStorage.setItem("authToken", action.payload.token); // Save token
+        state.user = action.payload.user; // Save user data
+        state.token = action.payload.token; // Save token
+        localStorage.setItem("authToken", action.payload.token); // Save token to localStorage
+        localStorage.setItem("user", JSON.stringify(action.payload.user)); // Save user data to localStorage
       })
       .addCase(registerUserAsync.rejected, (state, action) => {
         state.loading = false;
@@ -76,6 +76,7 @@ const authSlice = createSlice({
         state.user = action.payload.user; // Save user data
         state.token = action.payload.token; // Save token
         localStorage.setItem("authToken", action.payload.token); // Save token to localStorage
+        localStorage.setItem("user", JSON.stringify(action.payload.user)); // Save user data to localStorage
       })
       .addCase(loginUserAsync.rejected, (state, action) => {
         state.loading = false;

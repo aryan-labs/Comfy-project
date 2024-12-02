@@ -11,40 +11,56 @@ export const SignUp = async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
-    // Check if user already exists
+    // Check if the user already exists
     const existingUser = await userModel.findOne({ email });
     if (existingUser) {
-      return res.status(400).json({ error: "User already exists" });
+      return res
+        .status(400)
+        .json({ success: false, message: "User already exists" });
     }
 
-    if (!password.length > 8) {
-      res.json({ success: false, message: "Enter Strong Password" });
+    // Validation
+    if (!password || password.length < 8) {
+      return res
+        .status(400)
+        .json({
+          success: false,
+          message: "Password must be at least 8 characters",
+        });
     }
-
     if (!validator.isEmail(email)) {
-      return res.json({ success: false, message: "Enter correct email" });
+      return res
+        .status(400)
+        .json({ success: false, message: "Invalid email format" });
     }
 
+    // Hash password and save user
     const salt = await bcrypt.genSalt(10);
-    const hashedPasword = await bcrypt.hash(password, salt);
+    const hashedPassword = await bcrypt.hash(password, salt);
 
-    // Create new user
     const newUser = new userModel({
       name,
       email,
-      password: hashedPasword,
-      // Ensure to hash the password in production
+      password: hashedPassword,
     });
+    const savedUser = await newUser.save();
 
-    const user = await newUser.save();
+    const token = createToken(savedUser._id);
 
-    const token = createToken(user._id);
-    res.json({ success: true, token });
-    
+    // Send back the user data and token
+    res.status(201).json({
+      success: true,
+      user: { id: savedUser._id, name: savedUser.name, email: savedUser.email },
+      token,
+    });
   } catch (error) {
     res
       .status(500)
-      .json({ error: "Failed to register user", details: error.message });
+      .json({
+        success: false,
+        message: "Registration failed",
+        error: error.message,
+      });
   }
 };
 

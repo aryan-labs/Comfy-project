@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { removeItem, clearCart } from '../CartSlice';
 import Header from '../../src/Header';
 import Navbar from '../components/Navbar'
+import { Navigate, NavLink } from 'react-router-dom';
 const Cart = () => {
   const { items, totalQuantity, totalPrice } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
@@ -68,8 +69,8 @@ const Cart = () => {
           <h1 >Total Amount:<span className='ml-28'>${totalPrice.toFixed(2)+5}</span></h1>
 
           </div>
-                     <button className='bg-blue-600 w-72 h-10 ml-5 rounded-lg mt-4 text-white '>PROCEED TO CHECKOUT</button>
-         </div>
+                  <NavLink to='/checkout' >  <button className='bg-blue-600 w-72 h-10 ml-5 rounded-lg mt-4 text-white '>PROCEED TO CHECKOUT</button>
+         </NavLink></div>
           </div>
     </div>
   );
