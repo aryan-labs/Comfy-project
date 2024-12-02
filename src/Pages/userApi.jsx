@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const api = 'http://localhost:4000/api/user'; // Your backend URL
+const api = 'https://comfy-project-backend.onrender.com/api/user'; // Your backend URL
 
 // Register user function using axios for consistency
 export const registerUser = async (userData) => {
